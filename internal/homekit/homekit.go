@@ -27,8 +27,7 @@ import (
 
 func Init() {
 	var cfg struct {
-		FFmpeg map[string]string `yaml:"ffmpeg"`
-		Mod    map[string]struct {
+		Mod map[string]struct {
 			Pin             string   `yaml:"pin"`
 			Name            string   `yaml:"name"`
 			DeviceID        string   `yaml:"device_id"`
@@ -46,7 +45,6 @@ func Init() {
 	app.LoadConfig(&cfg)
 
 	log = app.GetLogger("homekit")
-	homekit.SetFFmpegBin(cfg.FFmpeg["bin"])
 
 	streams.HandleFunc("homekit", streamHandler)
 
