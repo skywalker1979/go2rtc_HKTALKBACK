@@ -51,6 +51,7 @@ func newAudioTranscoder(src *core.Receiver, dst *core.Codec) (*audioTranscoder, 
 	args := []string{
 		"-hide_banner", "-v", "error",
 		"-protocol_whitelist", "pipe,udp,rtp",
+		"-listen_timeout", "3600",
 		"-f", "sdp", "-i", "pipe:0",
 		"-map", "0:a:0",
 		"-c:a", output.encoder,
