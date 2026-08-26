@@ -217,6 +217,8 @@ func NewServer(cfg Config) (*Server, error) {
 		} else {
 			srv.accessory = camera.NewHKSVAccessory("AlexxIT", "go2rtc", name, "-", cfg.Version)
 		}
+	} else if cfg.CategoryID == "doorbell" {
+		srv.accessory = camera.NewDoorbellAccessory("AlexxIT", "go2rtc", name, "-", cfg.Version)
 	} else {
 		srv.accessory = camera.NewAccessory("AlexxIT", "go2rtc", name, "-", cfg.Version)
 	}

@@ -78,6 +78,35 @@ func NewHKSVDoorbellAccessory(manuf, model, name, serial, firmware string) *hap.
 	return acc
 }
 
+
+// NewDoorbellAccessory creates a video doorbell accessory without HKSV.
+// Same as NewHKSVDoorbellAccessory but without CameraEventRecordingManagement
+// and DataStreamManagement, so iOS won't require an iCloud+ plan.
+func NewDoorbellAccessory(manuf, model, name, serial, firmware string) *hap.Accessory {
+	doorbell := ServiceDoorbell()
+
+	acc := &hap.Accessory{
+		AID: hap.DeviceAID,
+		Services: []*hap.Service{
+			hap.ServiceAccessoryInformation(manuf, model, name, serial, firmware),
+			ServiceCameraRTPStreamManagement(),
+			ServiceMicrophone(),
+			ServiceSpeaker(),
+			ServiceMotionSensor(),
+			doorbell,
+		},
+	}
+	acc.InitIID()
+
+	// HAP spec: Doorbell must be the primary service for category 18
+	doorbell.Primary = true
+
+	return acc
+}
+
+
+
+
 func ServiceSpeaker() *hap.Service {
 	return &hap.Service{
 		Type: "113", // 'Speaker'
