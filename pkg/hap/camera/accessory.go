@@ -93,6 +93,7 @@ func NewDoorbellAccessory(manuf, model, name, serial, firmware string) *hap.Acce
 			ServiceMicrophone(),
 			ServiceSpeaker(),
 			ServiceMotionSensor(),
+			ServiceCameraOperatingMode(),
 			doorbell,
 		},
 	}
