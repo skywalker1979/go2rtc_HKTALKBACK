@@ -89,11 +89,11 @@ func NewDoorbellAccessory(manuf, model, name, serial, firmware string) *hap.Acce
 		AID: hap.DeviceAID,
 		Services: []*hap.Service{
 			hap.ServiceAccessoryInformation(manuf, model, name, serial, firmware),
+			ServiceCameraControl(),
 			ServiceCameraRTPStreamManagement(),
 			ServiceMicrophone(),
 			ServiceSpeaker(),
 			ServiceMotionSensor(),
-			ServiceCameraOperatingMode(),
 			doorbell,
 		},
 	}
@@ -106,7 +106,19 @@ func NewDoorbellAccessory(manuf, model, name, serial, firmware string) *hap.Acce
 }
 
 
-
+func ServiceCameraControl() *hap.Service {
+	return &hap.Service{
+		Type: "111", // 'CameraControl'
+		Characters: []*hap.Character{
+			{
+				Type:   "25", // On
+				Format: hap.FormatBool,
+				Value:  1,
+				Perms:  hap.EVPRPW,
+			},
+		},
+	}
+}
 
 func ServiceSpeaker() *hap.Service {
 	return &hap.Service{
