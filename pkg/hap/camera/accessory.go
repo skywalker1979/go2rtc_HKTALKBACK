@@ -89,7 +89,7 @@ func NewDoorbellAccessory(manuf, model, name, serial, firmware string) *hap.Acce
 		AID: hap.DeviceAID,
 		Services: []*hap.Service{
 			hap.ServiceAccessoryInformation(manuf, model, name, serial, firmware),
-			ServiceCameraControl(),
+			ServiceCameraRTPStreamManagement(),
 			ServiceCameraRTPStreamManagement(),
 			ServiceMicrophone(),
 			ServiceSpeaker(),
